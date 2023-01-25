@@ -1,0 +1,8 @@
+<!--pages/testadd.wxml-->
+
+<view class="container">
+  <input placeholder="身高" bindinput="bindInput1"/>
+  <input placeholder="体重" bindinput="bindInput2"/>
+  <button type="primary" bindtap="bindAdd">计算</button>
+  <input placeholder="BMI" value="{{result}}" disabled/>
+</view>

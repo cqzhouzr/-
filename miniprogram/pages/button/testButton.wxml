@@ -1,0 +1,5 @@
+
+<view class="content-btn-group">
+<button class="btn" bindtap="onDefaultButtonClick" type="primary" size="mini"> 上月 </button>
+<button class="btn" bindtap="onDefaultButtonClick" type="primary" size="mini"> 下月 </button>
+</view>

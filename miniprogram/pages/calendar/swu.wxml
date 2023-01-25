@@ -1,0 +1,38 @@
+<!-- 日历 -->
+<view class="section">
+  <view class="section__title">请选择学期</view>
+  <picker bindchange="bindPickerChange" value="{{index}}" range="{{semesterTitle}}">
+    <view class="picker">
+      {{semesterTitle[index]}}
+    </view>
+  </picker>
+</view>
+<view class="myReport-calendar">            
+            <view class="calendar">
+                <view class="selectDate">
+                    <view class="date-wrap">
+                        {{year}}年{{month}}月
+                    </view>
+                </view> 
+                <view class="week">
+                    <block wx:for="{{weekArr}}" wx:for-index="index" wx:for-item="item" wx:key="key">
+                        <view>{{item}}</view>
+                    </block>
+                </view> 
+                <view class="date-box"> 
+                    <block wx:for="{{dateArr}}" wx:key="key">
+                        <view class='{{theDay == item.isToday ? "nowDay" : ""}}'>
+                            <view class="date-head" >
+                                <view>{{item.dateNum}}\n</view>
+                                <view class="event">{{item.event}}\n</view>
+                            </view>
+                        </view>
+                    </block>
+           </view>
+     </view>
+</view>
+<view class="content-btn-group">
+<button class="btn" bindtap="lastMonthClick" type="primary" size="mini"> 上月 </button>
+<button class="btn" bindtap="todayClick" type="primary" size="mini"> 今天 </button>
+<button class="btn" bindtap="nextMonthClick" type="primary" size="mini"> 下月 </button>
+</view>
