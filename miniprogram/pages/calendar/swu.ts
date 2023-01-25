@@ -252,4 +252,7 @@ onLoad: function (options) {//装入Json事件数据
   }
 })
 
-//todo ： 封装步骤关系
+//todo
+// 封装步骤关系
+// 云开发
+// 版本管理
