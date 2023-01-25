@@ -35,8 +35,12 @@ Page({
 	  for (let i = 0; i < this.data.eventsArray.length; i++) {
 		  for (let j = 0; j < dateArr1.length; j++){
 			  let obj=dateArr1[j];
-			  if(this.data.eventsArray[i][0]==obj.isToday)
-				  obj.event= this.data.eventsArray[i][1];
+			  if(this.data.eventsArray[i][0]==obj.isToday){
+				  let eventstr=this.data.eventsArray[i][1];
+				  let eventsubstr=eventstr.substr(0,4);
+				  obj.event= obj.event+"\n"+eventsubstr;
+				  obj.eventdetail= obj.eventdetail+"\n"+eventstr;
+			  }
 			  dateArr1[j]=obj;
 		  }
 	  }
@@ -130,6 +134,8 @@ Page({
             dateNum:dataNumStr
           }      
         }
+		obj.event="";
+		obj.eventdetail="";
         dateArr1[i] = obj;
       }
       this.setData({
@@ -204,6 +210,20 @@ onLoad: function (options) {//装入Json事件数据
 	});
 	let x=this.data.year;
 },
+bind_publish(e){    //点击某个具体的元素，获取到他在数组中的下标，根据下标，将该元素_id值传递给下一个页面
+    console.log(e.currentTarget.dataset.id);    
+    wx.showModal({
+      title: '提示',
+      content: e.currentTarget.dataset.id,
+      success: function (res) {
+        if (res.confirm) { //这里是点击了确定以后
+          console.log('用户点击确定')
+        } else { //这里是点击了取消以后
+          console.log('用户点击取消')
+        }
+      }
+    });
+  },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -255,6 +275,5 @@ onLoad: function (options) {//装入Json事件数据
 //todo
 // 封装步骤关系
 // 云开发
-// 版本管理
 // 增加、修改、删除事件
 // 模态窗口
