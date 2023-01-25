@@ -23,8 +23,7 @@
                     <view wx:for="{{dateArr}}" wx:key="key" data-id="{{item.eventdetail}}" bindtap="bind_publish">
                         <view class='{{theDay == item.isToday ? "nowDay" : ""}}'>
                             <view class="date-head" >
-                                <view>{{item.dateNum}}\n</view>
-                                <view class="event">{{item.event}}\n</view>
+                                <view>{{item.dateNum}}<text>{{item.event}}</text></view>
                             </view>
                         </view>
                       </view>

@@ -30,7 +30,8 @@ Page({
         ,['2023-2024-1','2023-9-3',19,6]
 	  ],
   },
-  addEvents:function(){//月历中填充事件
+  addEvents:function(){
+	  //月历中填充事件
 	  let dateArr1=this.data.dateArr;
 	  for (let i = 0; i < this.data.eventsArray.length; i++) {
 		  for (let j = 0; j < dateArr1.length; j++){
@@ -38,8 +39,11 @@ Page({
 			  if(this.data.eventsArray[i][0]==obj.isToday){
 				  let eventstr=this.data.eventsArray[i][1];
 				  let eventsubstr=eventstr.substr(0,4);
-				  obj.event= obj.event+"\n"+eventsubstr;
-				  obj.eventdetail= obj.eventdetail+"\n"+eventstr;
+          obj.event= obj.event+"\n"+eventsubstr;
+          if(obj.eventdetail.length>0)
+            obj.eventdetail= obj.eventdetail+"\r\n"+eventstr;
+          else
+            obj.eventdetail= eventstr;
 			  }
 			  dateArr1[j]=obj;
 		  }
@@ -48,14 +52,16 @@ Page({
           dateArr: dateArr1
     })
   },
-  bindPickerChange: function(e) { //选择学期   
+  bindPickerChange: function(e) { 
+  //选择学期   
     this.setData({
      index: e.detail.value
     })
 	this.getFirstMonth();
 	this.refresh();
   },
-  lastMonthClick: function () {//上月按钮
+  lastMonthClick: function () {
+	  //上月按钮
     let m=this.data.month;
     let y=this.data.year;
     if(m-1<=0){
@@ -72,7 +78,8 @@ Page({
 	this.refresh();
 	this.setPicker();
   },
-  nextMonthClick: function () {//下月按钮
+  nextMonthClick: function () {
+	  //下月按钮
     let m=this.data.month;
     let y=this.data.year;
     if(m+1>12){
@@ -89,7 +96,8 @@ Page({
 	 this.refresh();
 	 this.setPicker();
   },
-  todayClick: function () {//处理今日按钮
+  todayClick: function () {
+	  //处理今日按钮
 		let now = new Date();
 		this.setData({
 			month: now.getMonth()+1,
@@ -98,7 +106,8 @@ Page({
 		this.refresh();
 		this.setPicker();
   },
-  dateInit: function (year, month) {//根据年和月，产生日期数据
+  dateInit: function (year, month) {
+	  //根据年和月，产生日期数据
       let dateArr1 = []; //需要遍历的日历数组数据
       let arrLen = 0; //dateArr的数组长度      
       let startWeek = new Date(year + '/' + month  + '/' + 1).getDay(); //目标月1号对应的星期
@@ -142,7 +151,8 @@ Page({
           dateArr: dateArr1
       })
   },
-  getSemester:function(){//根据year和month获取所在学期数据
+  getSemester:function(){
+	  //根据year和month获取所在学期数据
 	  let d = new Date(this.data.year + '/' + (this.data.month+1)  + '/' + 1);
       d=d-1;
 	  for (let i = 0; i < this.data.semesters.length; i++) {
@@ -157,7 +167,9 @@ Page({
 		  }
 	  };
   },
-  getFirstMonth:function(){//根据学期index设置学期第一月所在年和月
+
+getFirstMonth:function(){
+	//根据学期index设置学期第一月所在年和月
 	for (let i = 0; i < this.data.semesters.length; i++) {
 		  let s = this.data.semesterTitle[this.data.index];
 		  if(s==this.data.semesters[i][0]){
@@ -170,8 +182,9 @@ Page({
 				break;
 		  }
 	  };
-  },
-  setPicker:function(){//根据学期设置picker的index
+},
+setPicker:function(){
+	//根据学期设置picker的index
 	for (let i = 0; i < this.data.semesterTitle.length; i++) 		  
 		  if(this.data.semester==this.data.semesterTitle[i]){			  
 			   this.setData({
@@ -179,7 +192,8 @@ Page({
 				});
 				break;
 		  };
-  },
+},
+  
   /**
    * 生命周期函数--监听页面显示
    */
@@ -191,38 +205,46 @@ onShow: function () {
         theDay: this.getYearStr(now.getFullYear(),now.getMonth() + 1,now.getDate())
     });
 },
-getYearStr(year,month,day){
+
+getYearStr:function(year,month,day){
 	let m=month>9?''+month:'0'+month;
 	let d=day>9?''+day:'0'+day;
 	return ''+year+m+d;
 },
-refresh:function(){//根据year和month获取所在学期数据、填充月份数据、添加事件
+
+
+refresh:function(){
+	//根据year和month获取所在学期数据、填充月份数据、添加事件
 	this.getSemester();
 	this.dateInit(this.data.year,this.data.month);
 	this.addEvents();
 },
+
   /**
    * 生命周期函数--监听页面加载
    */
-onLoad: function (options) {//装入Json事件数据
+onLoad: function (options) {
+	//装入Json事件数据
 	this.setData({
 	  eventsArray: jsonData.eventsList[0].eventsArray      
 	});
 	let x=this.data.year;
 },
-bind_publish(e){    //点击某个具体的元素，获取到他在数组中的下标，根据下标，将该元素_id值传递给下一个页面
-    console.log(e.currentTarget.dataset.id);    
-    wx.showModal({
-      title: '提示',
-      content: e.currentTarget.dataset.id,
-      success: function (res) {
-        if (res.confirm) { //这里是点击了确定以后
-          console.log('用户点击确定')
-        } else { //这里是点击了取消以后
-          console.log('用户点击取消')
-        }
-      }
-    });
+
+bind_publish:function(e){    //点击某个具体的元素，获取到他在数组中的下标，根据下标，将该元素_id值传递给下一个页面
+    console.log(e.currentTarget.dataset.id);  
+	if(e.currentTarget.dataset.id.length>0)
+		wx.showModal({
+		  title: '提示',
+		  content: e.currentTarget.dataset.id,
+		  success: function (res) {
+			if (res.confirm) { //这里是点击了确定以后
+			  console.log('用户点击确定')
+			} else { //这里是点击了取消以后
+			  console.log('用户点击取消')
+			}
+		  }
+		});
   },
 
   /**
