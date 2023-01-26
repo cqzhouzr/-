@@ -31,14 +31,36 @@ Page({
         ,['2023-2024-1','2023-9-3',19,6]
 	  ],
   },
+  /*addEvents:function(){
+	  //月历中填充事件
+	  let dateArr1=this.data.dateArr;
+	  for (let i = 0; i < this.data.eventsBase.length; i++) {
+		  for (let j = 0; j < dateArr1.length; j++){
+			  let obj=dateArr1[j];
+			  if(this.data.eventsBase[i][0]==obj.isToday){
+				  let eventstr=this.data.eventsBase[i][1];
+				  let eventsubstr=eventstr.substr(0,4);
+          obj.event= obj.event+"\n"+eventsubstr;
+          if(obj.eventdetail.length>0)
+            obj.eventdetail= obj.eventdetail+"\r\n"+eventstr;
+          else
+            obj.eventdetail= eventstr;
+			  }
+			  dateArr1[j]=obj;
+		  }
+	  }
+	  this.setData({
+          dateArr: dateArr1
+    })
+  },*/
   addEvents:function(){
 	  //月历中填充事件
 	  let dateArr1=this.data.dateArr;
-	  for (let i = 0; i < this.data.eventsArray.length; i++) {
+	  for (let i = 0; i < this.data.eventsBase.length; i++) {
 		  for (let j = 0; j < dateArr1.length; j++){
 			  let obj=dateArr1[j];
-			  if(this.data.eventsArray[i][0]==obj.isToday){
-				  let eventstr=this.data.eventsArray[i][1];
+			  if(this.data.eventsBase[i].eventdate==obj.isToday){
+				  let eventstr=this.data.eventsBase[i].eventdetail;
 				  let eventsubstr=eventstr.substr(0,4);
           obj.event= obj.event+"\n"+eventsubstr;
           if(obj.eventdetail.length>0)
@@ -230,7 +252,7 @@ onLoad: function (options) {
 	this.setData({
 	  eventsArray: jsonData.eventsList[0].eventsArray      
   });  
-  wx.cloud.database().collection('events')  //固定写法
+  wx.cloud.database().collection('events')  //固定写法 异步操作，数据库读完毕，onshow已提前运行
         .get()
         .then(res=>{
             console.log('请求成功',res);
@@ -238,10 +260,11 @@ onLoad: function (options) {
                 eventsBase:res.data,
             });
 			let x=this.data.weeks;
+			this.addEvents();
         })		
         .catch(err=>{
             console.log('请求失败',err);
-        })
+        });
 	
 },
 
