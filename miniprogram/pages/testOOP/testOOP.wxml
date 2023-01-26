@@ -1,0 +1,3 @@
+<!--pages/testOOP/testOOP.wxml-->
+<text>pages/testOOP/testOOP.wxml</text>
+<view>{{owner}}</view>
