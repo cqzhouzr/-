@@ -31,28 +31,7 @@ Page({
         ,['2023-2024-1','2023-9-3',19,6]
 	  ],
   },
-  /*addEvents:function(){
-	  //月历中填充事件
-	  let dateArr1=this.data.dateArr;
-	  for (let i = 0; i < this.data.eventsBase.length; i++) {
-		  for (let j = 0; j < dateArr1.length; j++){
-			  let obj=dateArr1[j];
-			  if(this.data.eventsBase[i][0]==obj.isToday){
-				  let eventstr=this.data.eventsBase[i][1];
-				  let eventsubstr=eventstr.substr(0,4);
-          obj.event= obj.event+"\n"+eventsubstr;
-          if(obj.eventdetail.length>0)
-            obj.eventdetail= obj.eventdetail+"\r\n"+eventstr;
-          else
-            obj.eventdetail= eventstr;
-			  }
-			  dateArr1[j]=obj;
-		  }
-	  }
-	  this.setData({
-          dateArr: dateArr1
-    })
-  },*/
+  
   addEvents:function(){
 	  //月历中填充事件
 	  let dateArr1=this.data.dateArr;
@@ -62,11 +41,11 @@ Page({
 			  if(this.data.eventsBase[i].eventdate==obj.isToday){
 				  let eventstr=this.data.eventsBase[i].eventdetail;
 				  let eventsubstr=eventstr.substr(0,4);
-          obj.event= obj.event+"\n"+eventsubstr;
-          if(obj.eventdetail.length>0)
-            obj.eventdetail= obj.eventdetail+"\r\n"+eventstr;
-          else
-            obj.eventdetail= eventstr;
+				  obj.event= obj.event+"\n"+eventsubstr;
+				  if(obj.eventdetail.length>0)
+					obj.eventdetail= obj.eventdetail+"\r\n"+eventstr;
+				  else
+					obj.eventdetail= eventstr;
 			  }
 			  dateArr1[j]=obj;
 		  }
@@ -147,6 +126,8 @@ Page({
                   isToday: this.getYearStr(year,month,num),
                   dateNum: num,               
               }
+			  if(obj.isToday==this.data.theDay)
+				  obj.event="\n今天哟";
           } else 
               obj = {};
         }
@@ -166,7 +147,8 @@ Page({
             dateNum:dataNumStr
           }      
         }
-		obj.event="";
+		if(typeof(obj.event) == 'undefined') 
+			obj.event="";
 		obj.eventdetail="";
         dateArr1[i] = obj;
       }
@@ -221,12 +203,12 @@ setPicker:function(){
    * 生命周期函数--监听页面显示
    */
 onShow: function () {
-	this.getFirstMonth();  //根据学期设置学期第一月所在年和月
-    this.refresh();
+	this.getFirstMonth();  //根据学期设置学期第一月所在年和月    
     let now = new Date(); //记录今日
 	this.setData({
         theDay: this.getYearStr(now.getFullYear(),now.getMonth() + 1,now.getDate())
     });
+	this.refresh();
 	let x=this.data.weeks;
 },
 
