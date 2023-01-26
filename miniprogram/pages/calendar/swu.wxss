@@ -75,13 +75,13 @@
 .date-head {  /*月历正文的字体大小*/
   height: 60rpx;
   line-height: 9px;
-  font-size: 28rpx;
+  font-size: 27rpx;
   margin: 0 0;
   padding: 0 0;
 }
 
 .date-head text{  /*月历事件的字体大小*/ 
-  font-size: 9px;
+  font-size: 15rpx;
   color:rgb(188, 65, 204);
   /*margin: 0px 0px;*/
   /*padding: 0rpx 0rpx;*/
