@@ -3,6 +3,7 @@ Page({
   /*页面的初始数据*/
   data: {
       eventsArray:[],
+      eventsBase:[],
       semesterTitle: ['2020-2021-2','2021-2022-1','2021-2022-2','2022-2023-1', '2022-2023-2'],
       index: 1,//学期选择的索引
       year: 2023, //所要查看的月的所在年
@@ -204,6 +205,7 @@ onShow: function () {
 	this.setData({
         theDay: this.getYearStr(now.getFullYear(),now.getMonth() + 1,now.getDate())
     });
+	let x=this.data.weeks;
 },
 
 getYearStr:function(year,month,day){
@@ -227,8 +229,20 @@ onLoad: function (options) {
 	//装入Json事件数据
 	this.setData({
 	  eventsArray: jsonData.eventsList[0].eventsArray      
-	});
-	let x=this.data.year;
+  });  
+  wx.cloud.database().collection('events')  //固定写法
+        .get()
+        .then(res=>{
+            console.log('请求成功',res);
+            this.setData({
+                eventsBase:res.data,
+            });
+			let x=this.data.weeks;
+        })		
+        .catch(err=>{
+            console.log('请求失败',err);
+        })
+	
 },
 
 bind_publish:function(e){    //点击某个具体的元素，获取到他在数组中的下标，根据下标，将该元素_id值传递给下一个页面
