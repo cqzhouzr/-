@@ -7,7 +7,8 @@
     "pages/picker/testpicker",
     "pages/button/testButton",
     "pages/testreadJson/readJson",
-    "pages/testOOP/testOOP"
+    "pages/testOOP/testOOP",
+    "pages/testasyn/testAsyn"
   ],
   "window": {
     "backgroundTextStyle": "light",
