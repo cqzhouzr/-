@@ -26,28 +26,6 @@ Page({
       ],
   },
 
-  addEvents: function () {
-      //月历中填充事件
-      let dateArr1 = this.data.dateArr;
-      for (let i = 0; i < this.data.eventsBase.length; i++) {
-          for (let j = 0; j < dateArr1.length; j++) {
-              let obj = dateArr1[j];
-              if (this.data.eventsBase[i].eventdate == obj.isToday) {
-                  let eventstr = this.data.eventsBase[i].eventdetail;
-                  let eventsubstr = eventstr.substr(0, 4);
-                  obj.event = obj.event + "\n" + eventsubstr;
-                  if (obj.eventdetail.length > 0)
-                      obj.eventdetail = obj.eventdetail + "\r\n" + eventstr;
-                  else
-                      obj.eventdetail = eventstr;
-              }
-              dateArr1[j] = obj;
-          }
-      }
-      this.setData({
-          dateArr: dateArr1
-      })
-  },
 
   /* 界面事件*/
 
@@ -116,7 +94,7 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow:  function () {
 
       this.getFirstMonth(); //根据学期设置学期第一月所在年和月
       let now = new Date(); //记录今日
@@ -130,7 +108,11 @@ Page({
       //根据year和month获取所在学期数据、填充月份数据、添加事件
       this.getSemester();
       this.dateInit(this.data.year, this.data.month);
-      this.addEvents();
+      //this.addEvents();
+	    this.setData({
+          dateArr: event.addEvents(this.data.dateArr)
+      })
+	  
   },
 
   /**
@@ -142,6 +124,8 @@ Page({
       this.setData({
           eventsBase: event.eventsBase,
       });
+      this.refresh();
+      let x=this.data.eventsBase;
   },
 
   bind_publish: function (e) { //点击某个具体的元素，获取到他在数组中的下标，根据下标，将该元素_id值传递给下一个页面
