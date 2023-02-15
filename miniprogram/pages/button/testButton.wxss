@@ -1,9 +1,0 @@
-.content-btn-group{
-  display: flex;
-  padding: 10px;
-  margin: 0px 40px;
-}
-
-.btn{
-  margin-top: 16px;
-}

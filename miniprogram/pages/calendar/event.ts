@@ -3,21 +3,18 @@ export class Event {
   // 字段
   eventsBase: [];
   //构造函数
-  constructor() {
-      //this.owner = engine;
+  constructor() {  
   };
-
   // 方法
   async getevent() {
       let db = wx.cloud.database();
       let res = await db.collection('events').get();
-      console.log('请求成功', res);
-      this.eventsBase = res.data;
+      console.log('事件请求成功', res);
+      this.eventsBase = res.data;	  
   };
 
   addEvents(dateArr) {
-      //月历中填充事件
-      //let dateArr = dateArr;
+      //月历中填充事件      
       if(typeof(this.eventsBase) == 'undefined')
         return;
       for (let i = 0; i < this.eventsBase.length; i++) {
