@@ -1,12 +1,8 @@
 {
   "pages": [
-    "pages/calendar/swu",  
-    "pages/testadd",
-    "pages/index/index",
-    "pages/logs/logs",
-     "pages/picker/testpicker",
-    "pages/button/testButton",
-    "pages/testreadJson/readJson"
+    "pages/calendar/swu",   
+    "pages/logs/logs"
+    
   ],
   "window": {
     "backgroundTextStyle": "light",

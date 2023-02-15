@@ -1,8 +1,0 @@
-<view class="section">
-  <view class="section__title">请选择学期</view>
-  <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
-    <view class="picker">
-      {{array[index]}}
-    </view>
-  </picker>
-</view>
