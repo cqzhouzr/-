@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/calendar/swu",   
-    "pages/logs/logs"
+    "pages/calendar/swu"   
+   
     
   ],
   "window": {
