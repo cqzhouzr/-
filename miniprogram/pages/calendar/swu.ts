@@ -8,6 +8,11 @@ import {
 }
 from './semester';
 let semester = new Semester();
+import {
+    Calendar
+}
+from './calendar';
+let calendar = new Calendar();
 Page({
     /*页面的初始数据*/
     data: {
@@ -56,7 +61,7 @@ Page({
         this.toCertainDay(y, m);
     },
     todayClick: function () {
-        //今日按钮        
+        //今日按钮
         this.toCertainDay();
     },
     setPicker: function () {
@@ -78,7 +83,7 @@ Page({
         //根据year和month获取所在学期数据、填充月份数据、添加事件
         semester.setSemester(this.data.year, this.data.month);
         this.setData({
-            dateArr: semester.dateInit(this.data.year, this.data.month)
+            dateArr: calendar.dateInit(this.data.year, this.data.month, semester.firstday, semester.lowerbound, semester.upperbound)
         })
         this.setData({
             dateArr: event.addEvents(this.data.dateArr)
@@ -99,9 +104,9 @@ Page({
             semesterTitle: semester.setSemesterTiltle()
         });
         let now = new Date(); //记录今日
-        semester.theDay = semester.getYearStr(now.getFullYear(), now.getMonth() + 1, now.getDate());
+        //semester.theDay = calendar.getYearStr(now.getFullYear(), now.getMonth() + 1, now.getDate());
         this.setData({
-            theDay: semester.theDay
+            theDay: calendar.theDay
         });
         this.toCertainDay();
 
