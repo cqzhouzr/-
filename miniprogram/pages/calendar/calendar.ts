@@ -11,7 +11,7 @@ export class Calendar {
 	
     // 方法
 
-    dateInit(year, month,firstday,lowerbound,upperbound) {
+    dateInit(year, month,firstday,lowerbound,upperbound,weeks) {
         //根据年和月，产生日期数据
         let dateArr = []; //需要遍历的日历数组数据
         let arrLen = 0; //dateArr的数组长度
@@ -42,11 +42,11 @@ export class Calendar {
                 if (d2 > upperbound || d2 < lowerbound) //处理点击上月超出系统最早学期
                     dataNumStr = "未安排";
                 else
-                    if (d2 >= this.firstday) {
+                    if (d2 >= firstday) {
                         //计算第几周
-                        daydiff = parseInt(d2.getTime() - this.firstday.getTime()) / (1000 * 60 * 60 * 24);
+                        daydiff = parseInt(d2.getTime() - firstday.getTime()) / (1000 * 60 * 60 * 24);
                         weekNum = Math.floor(daydiff / 7) + 1;
-                        if (weekNum <= this.weeks)
+                        if (weekNum <= weeks)
                             dataNumStr = "第" + weekNum + "周";
                     }
                 obj = {
@@ -54,7 +54,7 @@ export class Calendar {
                 }
             }
             if (typeof(obj.event) == 'undefined')
-                obj.event = "";
+                obj.event = ""; //预先建立事件字段
             obj.eventdetail = "";
             dateArr[i] = obj;
         }

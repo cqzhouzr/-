@@ -3,7 +3,6 @@ export class Semester {
     year: 2023; //所要查看的月的所在年，界面
     month: 3; //所要查看的月，界面
     semesterTiltle: [];
-    //theDay: ""; //记录当前日期，比如20230123
     semesters: []; //学期数据，从云数据库读取
     firstday: ""; //查看的学期的第一天
     semester: ""; //查看的学期

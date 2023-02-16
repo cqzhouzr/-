@@ -83,7 +83,7 @@ Page({
         //根据year和month获取所在学期数据、填充月份数据、添加事件
         semester.setSemester(this.data.year, this.data.month);
         this.setData({
-            dateArr: calendar.dateInit(this.data.year, this.data.month, semester.firstday, semester.lowerbound, semester.upperbound)
+            dateArr: calendar.dateInit(this.data.year, this.data.month, semester.firstday, semester.lowerbound, semester.upperbound,semester.weeks)
         })
         this.setData({
             dateArr: event.addEvents(this.data.dateArr)
